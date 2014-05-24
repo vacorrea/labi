@@ -30,7 +30,7 @@ extern "C" {
 #define PLANE_CODE_SIZE 7
 
 /* NOMES DE ARQUIVOS */
-#define PLANE_FILE_NAME "planes.dat
+#define PLANE_FILE_NAME "planes.dat"
 
 /* controle de opecaoes*/
 #define OPERATION_ERROR 1
@@ -75,9 +75,11 @@ void apresentarMensagem(char *message);
 
 /* input output data (stdin / file) */
 int receberInteiro(char *message, int min, int max);
-void receberString(char *message, char *array, int min, int max);
+void receberString(char *message, char *array, int max);
 float receberFloat(char *message, float min, float max);
 int isPlaneCodeValid(char *code);
+void inputAddress(char *message, char *array, int min, int max);
+void inputPlaneCode(char *message, char *array);
 int getNextValue(char * fileName);
 
 /* file*/

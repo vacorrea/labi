@@ -27,7 +27,7 @@ void prepareNewTest() {
     teste.velocidadeMaximaTeste = receberFloat("informe a velocidade maxima obtida no teste", 1, 99999);
     if(persistTeste(&teste) == 1) 
         puts("erro ao salvar arquivo, tente novamente");           
-    else puts("arquivo salvo com sucesso"); 
+    else puts("arquivo salvo com        sucesso"); 
     getchar();
 }
 int persistTeste(Teste *teste) {
@@ -41,5 +41,19 @@ int persistTeste(Teste *teste) {
     fclose(pFile);
     return OPERATION_ERROR;
 }
-
+/* Objetivo: verificar se o aviao ja realizou algum teste
+ */
+int findTestByPlaneID(char *key) {
+    FILE *pFile = openStream("teste.dat", "rb");
+    
+    Teste teste;
+    if(pFile != NULL) {
+        while(!feof(pFile)){
+            fread(&teste,sizeof(Teste),1,pFile);
+            if(strcmp(teste.codigoAviaoFK,key) == 0) 
+                return 1;
+        }
+    }
+    return 0;
+}
 

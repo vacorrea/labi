@@ -1,6 +1,6 @@
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "m2jio.h"
 
 
@@ -24,11 +24,30 @@ int displayMenu(void) {
     return opcao;
 }
 
+/* Objetivo: Receber o codigo do aviao*/
+void inputPlaneCode(char *message, char *array) {
+    char *pattern = "AAA9999";
+    
+    do {
+        receberString(message, array,PLANE_CODE_SIZE);
+        if(sizeof(*array) == 0)
+            puts("tamanho de codigo invalido");
+        if(strstr(array,""))
+    }while(sizeof(*array) == 0);
+    
+}
+/* Objetivo: receber e tratar o endereco */
+void inputAddress(char *message, char *array, int min, int max) {
+    
+}
+
 /* input data */
-void receberString(char *message, char *array, int min, int max) {    
+void receberString(char *message, char *array, int max) {    
     fpurge(stdin);
     puts(message);
     fgets(array,max,stdin);    
+    if(*array[strlen(*array)] == '\n')
+        *array[strlen(*array)] = '\0';
 }
 /* Objetivo: receber float
  */

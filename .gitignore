@@ -4,3 +4,6 @@ Makefile
 build/
 codigoBugado.zip
 dist/
+pista.dat
+aviao.dat
+teste.dat

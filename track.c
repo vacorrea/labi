@@ -19,7 +19,7 @@ typedef struct Pista {
  */
 void prepareNewTrack() {
     
-    Pista pista;    
+    Pista pista;
     
     system("clear");
     receberString("informe o endereco da pista",pista.endereco,1,NAME_SIZE);

@@ -39,6 +39,7 @@ int registerNewPlane(Aviao aviao) {
     return persistPlane(&aviao,"planes.dat");      
 }
 
+/* Objetivo: preparar o objeto aviao para ser atualizado*/
 void preparePlaneUpdate() {
     Aviao aviao;
     
@@ -69,10 +70,7 @@ int deletePlane(Aviao *aviao) {
     return 1;
 }
 int isDeletionAllowed(char *key) {
-    /* verificar se o aviao ja realizou testes atraves da chave estrangeira no
-      arquivo de testes*/
-    
-    return 0;
+    return findTestByPlaneID(key);    
 }
 /* Objetivo: Alterar um aviao
  */
