@@ -21,7 +21,7 @@ void prepareNewTrack() {
     Pista pista;    
     
     receberString("informe o endereco da pista",pista.endereco,1,NAME_SIZE);
-    pista.UF = receberString("informe a UF da pista", 0, 2);
+    receberString("informe a UF da pista",pista.UF, 0, 2);
     pista.tamanhoCircuito = receberFloat("informe o tamanho do circuito", 0, 100);
     pista.velocidadeMaxima = receberFloat("informe a velocidade maxima", 0, 100);
     receberString("informe o codigo do aviao que obteve o recorde",pista.codigoAviaoFK,1, PLANE_CODE_SIZE);

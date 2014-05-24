@@ -38,8 +38,8 @@ float receberFloat(char *message, float min, float max) {
         puts(message);
         ret = scanf("%f",&value);
         if(ret == 1) 
-           if((value < min) || (value > max));
-           puts("dado invalido");
+           if((value < min) || (value > max))
+                puts("dado invalido");
     }while((ret == 0) || (value < min) || (value > max));
 }
 /* Objetivo: Receber valor inteiro
