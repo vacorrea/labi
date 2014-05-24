@@ -13,6 +13,7 @@ int displayMenu(void) {
     
     int opcao = 0;
     
+    system("clear");
     puts("informe a opcao desejada");
     puts(" 1 - AVIAO | incluir novo / alterar / excluir dados");
     puts(" 2 - PISTAS DE TESTES | incluir novo / alterar dados");
@@ -34,6 +35,8 @@ void receberString(char *message, char *array, int min, int max) {
 float receberFloat(char *message, float min, float max) {
     float value = 0.0;
     int ret =0;
+    
+    fpurge(stdin);
     do {
         puts(message);
         ret = scanf("%f",&value);
@@ -41,6 +44,8 @@ float receberFloat(char *message, float min, float max) {
            if((value < min) || (value > max))
                 puts("dado invalido");
     }while((ret == 0) || (value < min) || (value > max));
+    fpurge(stdin);
+    return value;
 }
 /* Objetivo: Receber valor inteiro
  * bugs: não está limpando o buffer, testei com somente o scanf mas não funcionou.

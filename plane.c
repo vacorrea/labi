@@ -28,10 +28,11 @@ void prepareRegisterNewPlane(void) {
     aviao.capacidade = receberInteiro("informe a capacidade do aviao", 0, 9999);
     receberString("informe o nome do cliente", aviao.nomeCliente, 0, NAME_SIZE);
     receberString("informe o pais de origem", aviao.paisOrigem, 0, NAME_SIZE);   
-    if(registerNewPlane(aviao) == 1)
-        puts("problema ao registrar aviao / tente novamente");
-    else
+    if(registerNewPlane(aviao) == 1) 
+        puts("problema ao registrar aviao / tente novamente");    
+    else 
         puts(" aviao registrado com sucesso");
+    getchar();
 }
 /* Objetivo: efetuar o registro do aviao*/
 int registerNewPlane(Aviao aviao) {
@@ -47,7 +48,7 @@ void preparePlaneUpdate() {
          o metodo isPlaneCodeValid retorna 1 se o aviao foi encontrado, e a instancia
          retorna populada */
     if(isPlaneCodeValid(aviao.codigo) == 0) return;    
-    if(updatePlane(&aviao) == 0)
+    if(updatePlane(&aviao) == 0) 
         puts("registro atualizado com sucesso");
     else
         puts("erro ao atualizar registro");    
@@ -95,20 +96,19 @@ int isPlaneCodeValid(char *code) {
     int indice=0, ret;
     
     fflush(stdin);
-    pFile = openStream("planes.dat","rb");      
+    pFile = openStream("aviao.dat","rb");      
     if(pFile != NULL) {        
         while(! (ret = feof(pFile))) {                       
             if(fread(&aviao,sizeof(aviao),1,pFile)==1){    
               if(strcmp(aviao.codigo,code) == 0) {
                   fclose(pFile);
-                  puts("codigo encontrado");                  
+                  puts("codigo repetido");                  
                   return 1;
                }
             }
         }
         fclose(pFile);
-    }    
-    puts("codigo nao encontrado");    
+    }   
     return 0;
 }
 /* Objetivo: Persistir aviao

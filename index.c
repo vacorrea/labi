@@ -13,12 +13,16 @@ int main(int argc, char** argv) {
     
     List *root;     // linked list
     int opcao=9999;
-
+    
     while(opcao != 0) {
         opcao = displayMenu();
         switch(opcao) {
             case 1 : prepareRegisterNewPlane();
                  break;
+            case 2: prepareNewTrack();
+                 break;
+            case 3: prepareNewTest();
+                 break;                
             case 0: puts("fim");
         }    
     }

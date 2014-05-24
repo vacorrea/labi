@@ -30,7 +30,7 @@ extern "C" {
 #define PLANE_CODE_SIZE 7
 
 /* NOMES DE ARQUIVOS */
-#define PLANE_FILE_NAME 'planes.dat'
+#define PLANE_FILE_NAME "planes.dat
 
 /* controle de opecaoes*/
 #define OPERATION_ERROR 1
@@ -58,7 +58,7 @@ typedef struct Pista {
 } Pista;
 
 typedef struct Teste {
-    int codigoAviaoFK;
+    char codigoAviaoFK[PLANE_CODE_SIZE];
     int codigoPistaFK;
     int data;  // coletada pelo ntp no formato DDMMYYYY
     float velocidadeMaximaTeste;
@@ -94,6 +94,9 @@ int searchPlaneByCode(Aviao *aviao);
 int isDeletionAllowed(char *key);
 
 /* Track */
-
-int registerNewTrack(Pista *pista);
+int persistTrack(Pista *pista);
 void prepareNewTrack();
+
+/* Test */
+void prepareNewTest();
+int persistTeste(Teste *teste);
