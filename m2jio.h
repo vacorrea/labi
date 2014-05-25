@@ -77,7 +77,7 @@ void apresentarMensagem(char *message);
 int receberInteiro(char *message, int min, int max);
 void receberString(char *message, char *array, int max);
 float receberFloat(char *message, float min, float max);
-int isPlaneCodeValid(char *code);
+void * isPlaneCodeValid(char *code);
 void inputAddress(char *message, char *array, int min, int max);
 void inputPlaneCode(char *message, char *array, int min);
 int getNextValue(char * fileName);

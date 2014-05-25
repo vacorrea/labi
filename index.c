@@ -14,10 +14,11 @@ int main(int argc, char** argv) {
     List *root;     // linked list
     int opcao=9999;
     
+    
     while(opcao != 0) {
         opcao = displayMenu();
         switch(opcao) {
-            case 1 : prepareRegisterNewPlane();
+            case 1 : planeMenu();
                  break;
             case 2: prepareNewTrack();
                  break;

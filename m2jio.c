@@ -23,6 +23,23 @@ int displayMenu(void) {
     opcao = receberInteiro("",0, 10);     
     return opcao;
 }
+void planeMenu(void) {
+    int opcao=0;
+    
+    system("clear");
+    puts("1 - Cadastrar Novo Aviao");
+    puts("2 - Atualizar Aviao");
+    puts("3 - Excluir Avião");
+    opcao = receberInteiro("",1,3);
+    switch(opcao) {
+        case 1: prepareRegisterNewPlane();
+            break;
+        case 2: preparePlaneUpdate();
+            break;            
+        case 3:
+            break;
+    }
+}
 
 /* Objetivo: Receber o codigo do aviao*/
 void inputPlaneCode(char *message, char *array, int min) {
@@ -51,9 +68,9 @@ void receberString(char *message, char *array, int max) {
         fgets(array,max,stdin);    
         if(array[strlen(array)] == '\n')
             array[strlen(array)] = '\0';
-        if(strlen(array) == 1)
+        if(strlen(array) == 0)
             puts("preencha o campo");
-    }while(strlen(array) == 1);
+    }while(strlen(array) == 0);
 }
 /* Objetivo: receber float
  */
