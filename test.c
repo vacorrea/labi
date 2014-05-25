@@ -20,7 +20,7 @@ void prepareNewTest() {
     
     system("clear");
     // verificar se  codigo existe
-    receberString("informe o codigo do aviao", teste.codigoAviaoFK, 0 , PLANE_CODE_SIZE);     
+    receberString("informe o codigo do aviao", teste.codigoAviaoFK, PLANE_CODE_SIZE);     
     // verificar se o codigo existe
     teste.codigoPistaFK = receberInteiro("informe o codigo da pista", 0, 99999);
     //teste.data = system("date");

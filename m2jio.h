@@ -79,7 +79,7 @@ void receberString(char *message, char *array, int max);
 float receberFloat(char *message, float min, float max);
 int isPlaneCodeValid(char *code);
 void inputAddress(char *message, char *array, int min, int max);
-void inputPlaneCode(char *message, char *array);
+void inputPlaneCode(char *message, char *array, int min);
 int getNextValue(char * fileName);
 
 /* file*/

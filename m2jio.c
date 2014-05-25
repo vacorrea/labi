@@ -25,29 +25,35 @@ int displayMenu(void) {
 }
 
 /* Objetivo: Receber o codigo do aviao*/
-void inputPlaneCode(char *message, char *array) {
+void inputPlaneCode(char *message, char *array, int min) {
     char *pattern = "AAA9999";
     
     do {
         receberString(message, array,PLANE_CODE_SIZE);
-        if(sizeof(*array) == 0)
-            puts("tamanho de codigo invalido");
-        if(strstr(array,""))
-    }while(sizeof(*array) == 0);
+        if((strlen(array) == min) || (strlen(array) > 7))
+            puts("tamanho de codigo invalido");        
+    }while((strlen(array) == min) ||  (strlen(array) > 7));
     
 }
 /* Objetivo: receber e tratar o endereco */
 void inputAddress(char *message, char *array, int min, int max) {
-    
+    do {
+        receberString(message, array, max);
+    }while(sizeof(*array) == min);
 }
 
 /* input data */
 void receberString(char *message, char *array, int max) {    
-    fpurge(stdin);
-    puts(message);
-    fgets(array,max,stdin);    
-    if(*array[strlen(*array)] == '\n')
-        *array[strlen(*array)] = '\0';
+    
+    fpurge(stdin);    
+    do {
+        puts(message);
+        fgets(array,max,stdin);    
+        if(array[strlen(array)] == '\n')
+            array[strlen(array)] = '\0';
+        if(strlen(array) == 1)
+            puts("preencha o campo");
+    }while(strlen(array) == 1);
 }
 /* Objetivo: receber float
  */
