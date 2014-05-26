@@ -20,34 +20,56 @@
 void prepareRegisterNewPlane(void) {
     Aviao aviao;
     
-    system("clear");       
-    inputPlaneCode("informe o codigo do aviao", aviao.codigo, 0);            
-    receberString("informe o modelo do aviao", aviao.modelo, MODELO_SIZE);        
-    aviao.capacidade = receberInteiro("informe a capacidade do aviao", 0, 9999);
-    receberString("informe o nome do cliente", aviao.nomeCliente, NAME_SIZE);
-    receberString("informe o pais de origem", aviao.paisOrigem, 2);   
-    if(persistPlane(&aviao,"planes.dat") == 1) 
+    system("clear");    
+    do {
+        inputPlaneCode("informe o codigo do aviao", aviao.codigo, 0);            
+    }while(isPlaneCodeValid(aviao.codigo));
+    getPlane(&aviao);
+    if(persistPlane(&aviao,"aviao.dat") == 1) 
         puts("problema ao registrar aviao / tente novamente");    
     else 
         puts(" aviao registrado com sucesso");    
     getchar();
 }
-
+/* Objetivo: receber os dados comuns de um aviao*/
+void getPlane(Aviao *aviao) {
+    receberString("informe o modelo do aviao", aviao->modelo, MODELO_SIZE);        
+    aviao->capacidade = receberInteiro("informe a capacidade do aviao", 0, 9999);
+    receberString("informe o nome do cliente", aviao->nomeCliente, NAME_SIZE);
+    receberString("informe o pais de origem", aviao->paisOrigem, 2);   
+}
+/* Objetivo: Listar os avioes persistidos em arquivo */
+void listarAvioes(){
+    FILE *pFile = openStream("aviao.dat","rb");
+    Aviao aviao;
+    
+    system("clear");
+    if(pFile != NULL) {
+        while(!feof(pFile)) {
+            fread(&aviao,sizeof(Aviao),1,pFile);
+            apresentarAviao(&aviao);
+        }
+        puts("\n");
+        puts("\n");
+        getchar();
+    }
+}
+/* Objetivo: apresentar os dados de um aviao em formato tabular*/ 
+void apresentarAviao(Aviao *aviao) {
+    printf("Codigo: %s  Modelo: %s  Capacidade: %d \n",aviao->codigo, aviao->modelo, aviao->capacidade);
+}
 /* Objetivo: preparar o objeto aviao para ser atualizado*/
 void preparePlaneUpdate() {
     Aviao aviao;
     
+    system("clear");
     // 1. Encontrar o aviao pelo id
-    inputPlaneCode("informe o codigo do aviao que deseja alterar", aviao.codigo, PLANE_CODE_SIZE);
-    /* 2. Procurar o aviao informado em arquivo 
-         o metodo isPlaneCodeValid retorna 1 se o aviao foi encontrado, e a instancia
-         retorna populada */
-    if(isPlaneCodeValid(aviao.codigo) == 0) return;    
-    if(updatePlane(&aviao) == 0) 
-        puts("registro atualizado com sucesso");
-    else
-        puts("erro ao atualizar registro"); 
-    free(&aviao);
+    
+    inputPlaneCode("informe o codigo do aviao que deseja alterar", aviao.codigo, PLANE_CODE_SIZE); 
+    if(isPlaneCodeValid(aviao.codigo) == 0) return;
+    getPlane(&aviao);
+    if(updatePlane(&aviao) == 0) puts("registro atualizado com sucesso");
+    else puts("erro ao atualizar registro");     
 }
 /* Objetivo: Alterar os dados de um aviao que não realizou nenhum teste
  */
@@ -91,7 +113,7 @@ int updatePlane(Aviao *aviao) {
     }
     fclose(pFile);
     fclose(pFileTMP);
-    //System("rm aviao.dat; mv aviaoTMP.dat aviao.dat"); 
+    system("rm aviao.dat; mv aviaoTMP.dat aviao.dat"); 
     return 0;
 }
 /* Objetivo: encontrar o aviao pelo código 
@@ -105,19 +127,20 @@ int isPlaneCodeValid(char *code) {
     int indice=0, ret;
     
     fflush(stdin);
-    pFile = openStream("aviao.dat","rb");      
-    if(pFile != NULL) {        
+    pFile = openStream("aviao.dat","rb"); 
+    if(pFile != NULL) {                
         while(! (ret = feof(pFile))) {                       
             if(fread(&aviao,sizeof(aviao),1,pFile)==1){    
               if(strcmp(aviao.codigo,code) == 0) {
                   fclose(pFile);
-                  puts("codigo repetido");                  
+                  puts("codigo encontrado");                  
                   return 1;
                }
             }
-        }
+        }        
         fclose(pFile);
-    }   
+    } 
+    puts("codigo nao encontrado"); getchar();
     return 0;
 }
 /* Objetivo: Persistir aviao

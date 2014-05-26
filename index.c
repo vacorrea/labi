@@ -16,6 +16,7 @@ int main(int argc, char** argv) {
     
     
     while(opcao != 0) {
+        fpurge(stdin);
         opcao = displayMenu();
         switch(opcao) {
             case 1 : planeMenu();

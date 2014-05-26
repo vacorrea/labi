@@ -77,7 +77,7 @@ void apresentarMensagem(char *message);
 int receberInteiro(char *message, int min, int max);
 void receberString(char *message, char *array, int max);
 float receberFloat(char *message, float min, float max);
-void * isPlaneCodeValid(char *code);
+int isPlaneCodeValid(char *code);
 void inputAddress(char *message, char *array, int min, int max);
 void inputPlaneCode(char *message, char *array, int min);
 int getNextValue(char * fileName);
@@ -89,11 +89,17 @@ int isPathValid(char *fileName);
 
 /* Plane */
 void prepareRegisterNewPlane(void);
+void preparePlaneUpdate();
 int registerNewPlane(Aviao aviao);
 int persistPlane(Aviao *aviao, char *fileName);
 int deletePlane(Aviao *aviao);
 int searchPlaneByCode(Aviao *aviao);
 int isDeletionAllowed(char *key);
+void planeMenu(void);
+int updatePlane(Aviao *aviao);
+void getPlane(Aviao *aviao);
+void listarAvioes();
+void apresentarAviao(Aviao *aviao);
 
 /* Track */
 int persistTrack(Pista *pista);
@@ -102,3 +108,4 @@ void prepareNewTrack();
 /* Test */
 void prepareNewTest();
 int persistTeste(Teste *teste);
+int findTestByPlaneID(char *key);

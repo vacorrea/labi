@@ -13,6 +13,7 @@ int displayMenu(void) {
     
     int opcao = 0;
     
+    fpurge(stdin);
     system("clear");
     puts("informe a opcao desejada");
     puts(" 1 - AVIAO | incluir novo / alterar / excluir dados");
@@ -20,23 +21,27 @@ int displayMenu(void) {
     puts(" 3 - TESTES | incluir novo / alterar / excluir dados");    
     puts(" 4 - Relatórios ");
     puts(" 0 - Sair ");
-    opcao = receberInteiro("",0, 10);     
+    opcao = receberInteiro("",0, 5);     
     return opcao;
 }
 void planeMenu(void) {
     int opcao=0;
     
+    fpurge(stdin);
     system("clear");
     puts("1 - Cadastrar Novo Aviao");
     puts("2 - Atualizar Aviao");
     puts("3 - Excluir Avião");
-    opcao = receberInteiro("",1,3);
+    puts("4 - Listar arquivo de avioes");
+    opcao = receberInteiro("",1,4);
     switch(opcao) {
         case 1: prepareRegisterNewPlane();
-            break;
-        case 2: preparePlaneUpdate();
+            break;            
+        case 2: preparePlaneUpdate();                
             break;            
         case 3:
+            break;
+        case 4: listarAvioes();
             break;
     }
 }
@@ -49,8 +54,7 @@ void inputPlaneCode(char *message, char *array, int min) {
         receberString(message, array,PLANE_CODE_SIZE);
         if((strlen(array) == min) || (strlen(array) > 7))
             puts("tamanho de codigo invalido");        
-    }while((strlen(array) == min) ||  (strlen(array) > 7));
-    
+    }while((strlen(array) == min) ||  (strlen(array) > 7));    
 }
 /* Objetivo: receber e tratar o endereco */
 void inputAddress(char *message, char *array, int min, int max) {
