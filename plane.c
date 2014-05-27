@@ -17,7 +17,7 @@
 } Aviao;
  */
 
-void prepareRegisterNewPlane(void) {
+void prepareForRegister(void) {
     Aviao aviao;
     
     system("clear");    
@@ -59,7 +59,7 @@ void apresentarAviao(Aviao *aviao) {
     printf("Codigo: %s  Modelo: %s  Capacidade: %d \n",aviao->codigo, aviao->modelo, aviao->capacidade);
 }
 /* Objetivo: preparar o objeto aviao para ser atualizado*/
-void preparePlaneUpdate() {
+void prepareForUpdate() {
     Aviao aviao;
     
     system("clear");
@@ -71,24 +71,50 @@ void preparePlaneUpdate() {
     if(updatePlane(&aviao) == 0) puts("registro atualizado com sucesso");
     else puts("erro ao atualizar registro");     
 }
+/* Objetivo: receber os dados do aviao a ser excluido*/
+void prepareForDelete() {
+    Aviao aviao;
+    
+    do {
+        inputPlaneCode("informe o codigo do aviao que deseja excluir",aviao.codigo,1);
+    }while(isPlaneCodeValid(aviao.codigo));
+    if(isDeletionAllowed(aviao.codigo) == 0) {
+        deletePlane(&aviao);        
+    } else 
+        puts("operacao nao autorizada | aviao ja realizou testes");    
+}
 /* Objetivo: Alterar os dados de um aviao que não realizou nenhum teste
  */
 int deletePlane(Aviao *aviao) {
-    if(isDeletionAllowed(aviao->codigo) == 0) {
-      /*1. abrir arquivo novo temporario e escrever o conteudo do arquivo anterior ate a linha do registro
+    
+    int cursor = 0;
+    FILE *pFile = openStream("aviao.dat","rb");
+    FILE *pFileTMP = openStream("aviaoTMP.dat","ab");
+    Aviao aviaoTmp;
+    /*1. abrir arquivo novo temporario e copiar o conteudo do arquivo anterior ate a linha do registro
       2. inserir a linha nova no arquivo novo temporario
       3. copiar o restante do arquivo anterior no novo temporario
       4. apagar o arquivo anterior / renomear o arquivo temporario
       5. fechar os dois arquivos
      */
-        return 0;
-    } else 
-        puts("operacao nao autorizada | aviao ja realizou testes");
-    return 1;
+    if((pFile != NULL) && (pFileTMP != NULL)) {
+        while(!feof(pFile)) {
+            fread(&aviaoTmp,sizeof(Aviao),1,pFile);
+            if(strcmp(aviaoTmp.codigo,aviao->codigo) == 0)
+                fwrite(aviao,sizeof(Aviao),1,pFileTMP);
+            else
+                fwrite(&aviaoTmp,sizeof(Aviao),1,pFileTMP);
+        }        
+    }
+    fclose(pFile);
+    fclose(pFileTMP);
+    system("rm aviao.dat; mv aviaoTMP.dat aviao.dat"); 
+    return 0;
 }
 int isDeletionAllowed(char *key) {
     return findTestByPlaneID(key);    
 }
+
 /* Objetivo: Alterar dados de um aviao
  */
 int updatePlane(Aviao *aviao) {  
@@ -126,7 +152,7 @@ int isPlaneCodeValid(char *code) {
     Aviao aviao;
     int indice=0, ret;
     
-    fflush(stdin);
+    fpurge(stdin);
     pFile = openStream("aviao.dat","rb"); 
     if(pFile != NULL) {                
         while(! (ret = feof(pFile))) {                       

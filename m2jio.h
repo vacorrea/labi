@@ -88,8 +88,8 @@ FILE * openStream(char *fileName, char *mode);
 int isPathValid(char *fileName);
 
 /* Plane */
-void prepareRegisterNewPlane(void);
-void preparePlaneUpdate();
+void prepareForRegister(void);
+void prepareForUpdate();
 int registerNewPlane(Aviao aviao);
 int persistPlane(Aviao *aviao, char *fileName);
 int deletePlane(Aviao *aviao);
@@ -100,6 +100,7 @@ int updatePlane(Aviao *aviao);
 void getPlane(Aviao *aviao);
 void listarAvioes();
 void apresentarAviao(Aviao *aviao);
+void excludePlane();
 
 /* Track */
 int persistTrack(Pista *pista);

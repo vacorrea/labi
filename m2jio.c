@@ -35,11 +35,11 @@ void planeMenu(void) {
     puts("4 - Listar arquivo de avioes");
     opcao = receberInteiro("",1,4);
     switch(opcao) {
-        case 1: prepareRegisterNewPlane();
+        case 1: prepareForRegister();
             break;            
-        case 2: preparePlaneUpdate();                
+        case 2: prepareForUpdate();                
             break;            
-        case 3:
+        case 3: excludePlane();
             break;
         case 4: listarAvioes();
             break;
