@@ -39,7 +39,7 @@ void planeMenu(void) {
             break;            
         case 2: prepareForUpdate();                
             break;            
-        case 3: excludePlane();
+        case 3: prepareForDelete();
             break;
         case 4: listarAvioes();
             break;
@@ -72,9 +72,9 @@ void receberString(char *message, char *array, int max) {
         fgets(array,max,stdin);    
         if(array[strlen(array)] == '\n')
             array[strlen(array)] = '\0';
-        if(strlen(array) == 0)
-            puts("preencha o campo");
-    }while(strlen(array) == 0);
+        if(strlen(array) == 1) 
+            puts("preencha o campo");        
+    }while((strlen(array) == 1) || (strlen(array) > max));
 }
 /* Objetivo: receber float
  */
@@ -103,7 +103,7 @@ int receberInteiro(char *message, int min, int max) {
         fpurge(stdin);        
         ret = scanf("%d",&variable);
           if(ret == 1)
-            if((variable < min) || (variable > max))
+            if((variable <= min) || (variable > max))
                 puts("valor invalido");
     }while(ret == 0 || variable < min || variable > max);
     fpurge(stdin);

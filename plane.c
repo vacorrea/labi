@@ -75,9 +75,10 @@ void prepareForUpdate() {
 void prepareForDelete() {
     Aviao aviao;
     
+    system("clear");
     do {
         inputPlaneCode("informe o codigo do aviao que deseja excluir",aviao.codigo,1);
-    }while(isPlaneCodeValid(aviao.codigo));
+    }while(isPlaneCodeValid(aviao.codigo) == 0);
     if(isDeletionAllowed(aviao.codigo) == 0) {
         deletePlane(&aviao);        
     } else 
@@ -100,15 +101,15 @@ int deletePlane(Aviao *aviao) {
     if((pFile != NULL) && (pFileTMP != NULL)) {
         while(!feof(pFile)) {
             fread(&aviaoTmp,sizeof(Aviao),1,pFile);
-            if(strcmp(aviaoTmp.codigo,aviao->codigo) == 0)
-                fwrite(aviao,sizeof(Aviao),1,pFileTMP);
-            else
-                fwrite(&aviaoTmp,sizeof(Aviao),1,pFileTMP);
+            if(strcmp(aviaoTmp.codigo,aviao->codigo) != 0)
+                fwrite(&aviaoTmp,sizeof(Aviao),1,pFileTMP);                
         }        
     }
     fclose(pFile);
     fclose(pFileTMP);
     system("rm aviao.dat; mv aviaoTMP.dat aviao.dat"); 
+    puts("aviao excluido com sucesso");
+    getchar();
     return 0;
 }
 int isDeletionAllowed(char *key) {

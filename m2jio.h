@@ -101,6 +101,7 @@ void getPlane(Aviao *aviao);
 void listarAvioes();
 void apresentarAviao(Aviao *aviao);
 void excludePlane();
+void prepareForDelete();
 
 /* Track */
 int persistTrack(Pista *pista);
